@@ -1,0 +1,84 @@
+@use "sass:math";
+
+$sm: 375px;
+$md: 500px;
+$lg: 700px;
+$xl: 1024px;
+$xx: 1300px;
+$mx: 1600px;
+$navBreakpoint: 1920px;
+
+.site {
+  /* Easing Function */
+  --time: 600ms;
+  --ease: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+
+  /* Breakpoints */
+  --sm: #{$sm};
+  --md: #{$md};
+  --lg: #{$lg};
+  --xl: #{$xl};
+  --xx: #{$xx};
+}
+
+@mixin bp($size: $sm, $prop: min-width) {
+  @media screen and ($prop: $size) {
+    @content;
+  }
+}
+
+@mixin transition() {
+  @media screen and (prefers-reduced-motion: no-preference) {
+    @content;
+  }
+}
+
+@function px-from-percent($percentage, $width: 100) {
+  @return ($percentage * 0.01) * $width;
+}
+
+@function strip-units($number) {
+  @return math.div($number, $number * 0 + 1);
+}
+
+@function calc-vw($pixel, $container-size: 100) {
+  @return math.div(strip-units($pixel), strip-units($container-size)) * 100 +
+    0vw;
+}
+
+@function calc-leading($leading-in-pixels, $type-size) {
+  @return math.div(strip-units($leading-in-pixels), strip-units($type-size));
+}
+
+// interpolates type size between min and max
+@mixin spacer($type, $min-font-size, $max-font-size) {
+  & {
+    #{$type}: $min-font-size;
+
+    @media screen and (min-width: $sm) {
+      #{$type}: calc(
+        #{$min-font-size} + #{strip-units($max-font-size - $min-font-size)} *
+          ((100vw - #{$sm}) / #{strip-units($lg - $sm)})
+      );
+    }
+
+    @media screen and (min-width: $lg) {
+      #{$type}: $max-font-size;
+    }
+  }
+}
+
+@mixin fluidScale(
+  $sizeInPixels,
+  $baselineInPixels: 8px,
+  $breakpointInPixels: 1280px
+) {
+  font-size: $sizeInPixels;
+  line-height: $baselineInPixels;
+  font-feature-settings: "ss04", "ss05", "ss06", "ss07";
+
+  @media (min-width: $breakpointInPixels) {
+    font-size: calc-vw($sizeInPixels, $breakpointInPixels);
+    line-height: calc-leading($baselineInPixels, $sizeInPixels);
+  }
+}

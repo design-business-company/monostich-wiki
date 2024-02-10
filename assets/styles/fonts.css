@@ -1,4 +1,14 @@
 @font-face {
+  font-family: "Frankie";
+  src: url("~/assets/fonts/frankie.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "System85";
+  src: url("~/assets/fonts/system85.ttf") format("truetype");
+}
+
+/* @font-face {
   src: url("https://type.cargo.site/files/CargoDiatypePlusVariable.woff2");
   font-family: "abcdiatype";
-}
+} */

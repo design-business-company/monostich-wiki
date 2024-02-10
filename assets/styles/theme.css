@@ -23,10 +23,10 @@
   --color-pink: #ec92c5;
   */
 
-  --color-background: #0e0e0c;
-  --color-background-light: #75716d;
-  --color-foreground: #f6f5f5;
-  --color-interactive: #fc3c00;
+  --color-background: #000000;
+  --color-background-light: #16150d;
+  --color-foreground: #f4f3ef;
+  --color-interactive: #4a462a;
 
   --unit-baseline: 8px;
   --unit-smallest: calc(var(--unit-baseline) * 0.25);

@@ -29,12 +29,6 @@ watch(
 </script>
 
 <style lang="css">
-.site-content {
-  padding-left: var(--unit-big);
-  padding-right: var(--unit-big);
-  padding-top: calc(var(--unit-big) * 6);
-}
-
 :root {
   --base-font-size: clamp(24px, 4vw, 48px);
   --scale-factor: 0.13;

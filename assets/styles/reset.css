@@ -148,7 +148,7 @@ table {
 html,
 body,
 #__nuxt {
-  font-family: "abcdiatype";
+  font-family: "Frankie";
   min-height: 100dvh;
   margin: 0;
 }
@@ -159,8 +159,6 @@ html {
   overflow-y: scroll;
   position: relative;
   scroll-behavior: smooth;
-  font-family: sans-serif;
-
   background-color: var(--color-background);
   color: var(--color-foreground);
 }

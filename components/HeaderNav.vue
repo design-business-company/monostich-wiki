@@ -2,10 +2,11 @@
   <nav>
     <ul>
       <li><NuxtLink to="/">Index</NuxtLink></li>
-      <li><NuxtLink to="/about">About</NuxtLink></li>
-      <li><NuxtLink to="/contact">Contact</NuxtLink></li>
-      <li><NuxtLink to="/three">Three</NuxtLink></li>
-      <li><NuxtLink to="/viewport">Viewport</NuxtLink></li>
+      <li><NuxtLink to="/button">button</NuxtLink></li>
+      <!-- <li><NuxtLink to="/about">About</NuxtLink></li> -->
+      <!-- <li><NuxtLink to="/contact">Contact</NuxtLink></li> -->
+      <!-- <li><NuxtLink to="/three">Three</NuxtLink></li> -->
+      <!-- <li><NuxtLink to="/viewport">Viewport</NuxtLink></li> -->
     </ul>
   </nav>
 </template>

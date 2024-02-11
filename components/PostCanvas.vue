@@ -41,58 +41,57 @@ function loadImage(src) {
   });
 }
 
-// Refactor drawing logic into a separate function
-function redrawCanvas() {
+// Adjust redrawCanvas to wait for drawFooter to complete
+async function redrawCanvas() {
   const canvas = canvasEl.value;
   if (!canvas || !props.data) return;
 
   const ctx = canvas.getContext("2d");
   if (!ctx) return;
 
-  const { adjective, noun, image } = props.data;
-
   // Clear the canvas before redrawing
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  const { adjective, noun, image } = props.data;
 
   ctx.fillStyle = "black"; // Background color
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  const img = new Image();
-  img.crossOrigin = "anonymous";
-  img.onload = () => {
-    const scale = Math.min(1280 / img.width, 1280 / img.height);
-    const imgWidth = img.width * scale;
-    const imgHeight = img.height * scale;
-    const imgX = (canvas.width - imgWidth) / 2;
-    const imgY = (canvas.height - imgHeight) / 2;
+  const img = await loadImage(image); // Use loadImage to ensure image is loaded
+  const scale = Math.min(1280 / img.width, 1280 / img.height);
+  const imgWidth = img.width * scale;
+  const imgHeight = img.height * scale;
+  const imgX = (canvas.width - imgWidth) / 2;
+  const imgY = (canvas.height - imgHeight) / 2;
 
-    ctx.drawImage(img, imgX, imgY, imgWidth, imgHeight);
+  ctx.drawImage(img, imgX, imgY, imgWidth, imgHeight);
 
-    ctx.fillStyle = "#4a462a";
-    ctx.font = "176px 'Frankie'";
-    ctx.textAlign = "center";
+  ctx.fillStyle = "#4a462a";
+  ctx.font = "176px 'Frankie'";
+  ctx.textAlign = "center";
 
-    const text = `${adjective} ${noun.toUpperCase()}`;
-    ctx.fillText(text, canvas.width / 2, 176);
+  const text = `${adjective} ${noun.toUpperCase()}`;
+  ctx.fillText(text, canvas.width / 2, 176);
 
-    drawFooter(canvas, ctx);
-  };
-  img.src = image;
+  await drawFooter(canvas, ctx); // Wait for footer to be drawn before proceeding
 }
 
 function drawFooter(canvas, ctx) {
-  const img = new Image();
-  img.src = "/monostich-footer.png";
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      const aspectRatio = img.width / img.height;
+      const targetWidth = canvas.width;
+      const targetHeight = targetWidth / aspectRatio;
+      const xPos = (canvas.width - targetWidth) / 2;
+      const yPos = canvas.height - targetHeight;
 
-  img.onload = () => {
-    const aspectRatio = img.width / img.height;
-    const targetWidth = canvas.width;
-    const targetHeight = targetWidth / aspectRatio;
-    const xPos = (canvas.width - targetWidth) / 2;
-    const yPos = canvas.height - targetHeight;
-
-    ctx.drawImage(img, xPos, yPos, targetWidth, targetHeight);
-  };
+      ctx.drawImage(img, xPos, yPos, targetWidth, targetHeight);
+      resolve(); // Resolve the promise after the image is drawn
+    };
+    img.onerror = reject;
+    img.src = "/monostich-footer.png";
+  });
 }
 
 function saveCanvasAsImage() {
@@ -116,14 +115,12 @@ onMounted(() => {
   redrawCanvas();
 });
 
+// Modify the watcher to use async/await
 watch(
   () => props.data,
-  (newVal, oldVal) => {
-    redrawCanvas();
-
-    setTimeout(() => {
-      saveCanvasAsImage();
-    }, 50);
+  async (newVal, oldVal) => {
+    await redrawCanvas();
+    saveCanvasAsImage();
   }
 );
 </script>

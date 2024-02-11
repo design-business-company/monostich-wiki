@@ -22,12 +22,14 @@
         />
       </figure>
 
-      <PostLinks :combo="combo" />
+      <PostLinks :combo="combo" :image="image.source" />
     </div>
   </article>
 </template>
 
 <script>
+import { FetchWikiImage } from "~/composables/FetchWikiImage";
+
 export default {
   data() {
     return {
@@ -46,6 +48,11 @@ export default {
       required: true,
     },
   },
+  setup() {
+    const { image, getImage } = FetchWikiImage();
+
+    return { image, getImage };
+  },
   mounted() {
     this.$nextTick(() => {
       this.observer = new IntersectionObserver(
@@ -56,18 +63,10 @@ export default {
     });
   },
   methods: {
-    async getImage() {
-      // `https://en.wikipedia.org/w/api.php?action=query&format=json&formatversion=2&prop=pageimages|pageterms&pithumbsize=${imageQuerySize}&titles=${searchString}`
-      const api = await $fetch(
-        `https://en.wikipedia.org/w/api.php?action=query&format=json&formatversion=2&&prop=pageimages|pageterms&pithumbsize=${this.imageQuerySize}&titles=${this.combo.imageQueryString}&origin=*`
-      );
-
-      this.image = api.query.pages[0].thumbnail;
-    },
     observerLazyLoad(entries) {
       entries.map((entry) => {
         if (entry.isIntersecting) {
-          this.getImage();
+          this.getImage(this.combo.imageQueryString);
           this.observer.unobserve(this.$refs.post, this.observerOptions);
         }
       });

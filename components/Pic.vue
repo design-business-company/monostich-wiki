@@ -82,7 +82,6 @@ export default {
     },
     observerCallback(entries) {
       entries.map((entry) => {
-        // console.log(entry);
         if (entry.isIntersecting) {
           this.setSource();
           this.observer.unobserve(this.$refs.pic, this.observerOptions);

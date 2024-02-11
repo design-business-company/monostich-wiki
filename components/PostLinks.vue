@@ -9,7 +9,7 @@
       >
     </IconButton>
 
-    <IconButton @click="saveContent">
+    <IconButton @click="saveMonostich">
       <template #icon>
         <IconDownload />
       </template>
@@ -19,15 +19,18 @@
 </template>
 
 <script>
+import { useCanvasStore } from "@/stores/canvas";
+
 export default {
   props: {
     combo: {
       type: Object,
       required: true,
     },
-  },
-  mounted() {
-    console.log(this.imageString);
+    image: {
+      type: String,
+      required: true,
+    },
   },
   computed: {
     imageString() {
@@ -57,8 +60,17 @@ export default {
     },
   },
   methods: {
-    saveContent() {
-      console.log("Saving content...");
+    saveMonostich(event) {
+      event.stopPropagation();
+
+      const canvasStore = useCanvasStore();
+      canvasStore.saveCanvasData({
+        adjective: this.combo.adjective,
+        noun: this.combo.noun,
+        image: this.image,
+      });
+
+      canvasStore.saveToCanvas();
     },
   },
 };

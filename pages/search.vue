@@ -1,5 +1,9 @@
 <template>
   <div>
+    <br />
+    <br />
+    <br />
+    <br />
     <form @submit.prevent.stop="search">
       <input v-model="searchInput" type="text" @input="capitalize" />
       <button>Search</button>

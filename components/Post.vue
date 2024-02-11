@@ -1,9 +1,13 @@
 <template>
-  <Observer :onEnter="onEnter" :once="true">
+  <Observer
+    :onEnter="onEnter"
+    :onLeave="onLeave"
+    :options="{ rootMargin: '200px' }"
+  >
     <article
-      class="monostich pair"
-      :class="[{ 'is-active': imageIsVisible }, { 'is-visible': isInView }]"
+      class="monostich"
       ref="post"
+      :class="[{ 'is-active': imageIsVisible }, { 'is-visible': isInView }]"
     >
       <PostHeader
         v-if="image"
@@ -13,19 +17,21 @@
         :noun="combo.noun"
       />
 
-      <div ref="postDrawer" class="pair__drawer" v-if="image">
-        <figure class="monostich__figure">
-          <Pic
-            @click.stop="toggle"
-            :source="image.source"
-            :alt="combo.imageQueryString"
-            :width="image.width"
-            :height="image.height"
-          />
-        </figure>
+      <Observer :onEnter="onDrawerEnter" :once="true">
+        <div ref="postDrawer" class="pair__drawer" v-if="image">
+          <figure class="monostich__figure">
+            <Pic
+              @click.stop="toggle"
+              :source="image.source"
+              :alt="combo.imageQueryString"
+              :width="image.width"
+              :height="image.height"
+            />
+          </figure>
 
-        <PostLinks :combo="combo" :image="image.source" />
-      </div>
+          <PostLinks :combo="combo" :image="image.source" />
+        </div>
+      </Observer>
     </article>
   </Observer>
 </template>
@@ -54,35 +60,27 @@ const postDrawer = ref(null);
 const imageIsVisible = ref(false);
 const isInView = ref(false);
 
-onMounted(() => {
-  nextTick(() => {
-    // handleScroll();
+const onEnter = () => {
+  gsap.fromTo(
+    post.value,
+    {
+      opacity: 0.2,
+    },
+    {
+      opacity: 1,
+      duration: 0.8,
+      ease: "power3.inOut",
+    }
+  );
+};
+
+const onLeave = () => {
+  gsap.to(post.value, {
+    opacity: 0.2,
   });
-});
+};
 
-// function handleScroll() {
-//   gsap.fromTo(
-//     post.value,
-//     {
-//       scale: 0.98,
-//       opacity: 0.2,
-//     },
-//     {
-//       scale: 1.0,
-//       scrollTrigger: {
-//         trigger: post.value,
-//         ease: "Power4.easeOut",
-//         end: `+=${window.innerHeight * 0.5}`,
-//         start: `-=${window.innerHeight * 0.65}`,
-//         scrub: 0.6,
-//         opacity: 1,
-//         markers: true,
-//       },
-//     }
-//   );
-// }
-
-const onEnter = async (el) => {
+const onDrawerEnter = async (el) => {
   await getImage(props.combo.imageQueryString);
 };
 
@@ -207,9 +205,7 @@ function toggle() {
 
 <style lang="scss" scoped>
 .monostich {
-  // &__figure img {
-  //   padding: 100px;
-  // }
+  opacity: 0.2;
 }
 
 .is-active {

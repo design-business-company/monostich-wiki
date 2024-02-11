@@ -32,16 +32,16 @@ h1 {
   grid-template-columns: 1fr 1fr;
   letter-spacing: -0.0125em;
   color: var(--color-interactive);
-  font-size: 44px;
+  font-size: 48px;
+  line-height: 1;
   transition: color 0.4s ease-out;
-  padding: 0.05em 0;
   gap: 0.05em;
 
-  @include fluidScale(44px, 44px, 375px);
+  @include fluidScale(48px, 48px, 500px);
 
   @media (min-width: 768px) {
     gap: 0.05em;
-    @include fluidScale(64px, 56px, 768px);
+    @include fluidScale(64px, 64px, 768px);
   }
 
   &:hover {
@@ -52,11 +52,11 @@ h1 {
 
 .adjective {
   text-align: right;
-  padding-left: 0.25em;
+  padding-left: 8px;
 }
 
 .noun {
   text-transform: uppercase;
-  padding-right: 0.25em;
+  padding-right: 8px;
 }
 </style>

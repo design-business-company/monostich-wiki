@@ -41,7 +41,7 @@ const { data } = await useFetch("/api/combos");
 
 // Run common mount/unmount scripts. Seup SEO, etc.
 PageSetup({
-  seoMeta: { title: "Index" },
+  seoMeta: { title: "Monostich Wiki" },
 });
 
 // Define page transitions or other page meta

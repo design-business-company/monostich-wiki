@@ -32,12 +32,12 @@ h1 {
   grid-template-columns: 1fr 1fr;
   letter-spacing: -0.0125em;
   color: var(--color-interactive);
-  font-size: 36px;
+  font-size: 44px;
   transition: color 0.4s ease-out;
   padding: 0.05em 0;
   gap: 0.05em;
 
-  @include fluidScale(36px, 36px, 375px);
+  @include fluidScale(44px, 44px, 375px);
 
   @media (min-width: 768px) {
     gap: 0.05em;

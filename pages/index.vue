@@ -48,6 +48,17 @@ PageSetup({
 definePageMeta({
   pageTransition: pageTransitionDefault(),
 });
+
+// Preload for canvas footer
+useHead({
+  link: [
+    {
+      rel: "preload",
+      href: "/monostich-footer.png",
+      as: "image",
+    },
+  ],
+});
 </script>
 
 <style lang="scss">

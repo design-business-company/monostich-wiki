@@ -1,111 +1,84 @@
 <template>
-  <img
-    ref="pic"
-    class="pic"
-    :class="[
-      { 'is-loading': !hasLoaded && !hasErrored },
-      { 'has-loaded': hasLoaded },
-      { 'has-errored': hasErrored },
-    ]"
-    :alt="alt"
-    :width="width"
-    :height="height"
-    @load="onLoad($event)"
-    @error="onError($event)"
-    loading="lazy"
-  />
+  <Observer :onEnter="onEnter" :once="true">
+    <img
+      ref="pic"
+      class="pic"
+      :alt="alt"
+      :width="width"
+      :height="height"
+      @load="onLoad"
+      @error="onError"
+      :loading="loading"
+    />
+  </Observer>
 </template>
 
-<script>
-export default {
-  props: {
-    source: {
-      type: String,
-      required: true,
-    },
-    alt: {
-      type: String,
-      required: false,
-      default: null,
-    },
-    loading: {
-      type: String,
-      required: false,
-      default: "lazy",
-    },
-    width: {
-      type: Number,
-      required: false,
-    },
-    height: {
-      type: Number,
-      required: false,
-    },
+<script setup>
+import { ref, onMounted, onUnmounted } from "vue";
+
+// Define your emits
+const emit = defineEmits(["load", "error"]);
+
+const props = defineProps({
+  source: {
+    type: String,
+    required: true,
   },
-  data() {
-    return {
-      hasLoaded: null,
-      hasErrored: null,
-      observer: null,
-      observerOptions: { rootMargin: `100% 0px`, threshold: 0 },
-    };
+  alt: {
+    type: String,
+    required: false,
+    default: null,
   },
-  mounted() {
-    this.$nextTick(() => {
-      this.observer = new IntersectionObserver(
-        this.observerCallback,
-        this.observerOptions
-      );
-      this.observer.observe(this.$refs.pic);
-    });
+  loading: {
+    type: String,
+    required: false,
+    default: "lazy",
   },
-  beforeDestroy() {
-    this.observer.unobserve(this.$refs.pic, this.observerOptions);
+  width: {
+    type: Number,
+    required: false,
   },
-  methods: {
-    onLoad(ev) {
-      this.hasLoaded = true;
-      this.$emit("load", ev);
-    },
-    onError(ev) {
-      this.hasErrored = true;
-      this.$emit("error", ev);
-    },
-    setSource() {
-      if (!this.$refs.pic.src) {
-        this.$refs.pic.src = this.source;
-      }
-    },
-    inView() {
-      this.setSource();
-      window.$observer.unobserve(this.$refs.pic, this.observerOptions);
-    },
-    observerCallback(entries) {
-      entries.map((entry) => {
-        if (entry.isIntersecting) {
-          this.setSource();
-          this.observer.unobserve(this.$refs.pic, this.observerOptions);
-        }
-      });
-    },
+  height: {
+    type: Number,
+    required: false,
   },
-};
+});
+
+const pic = ref(null);
+const hasLoaded = ref(false);
+const hasErrored = ref(false);
+
+function onLoad(event) {
+  hasLoaded.value = true;
+  emit("load", event);
+}
+
+function onError(event) {
+  hasErrored.value = true;
+  emit("error", event);
+}
+
+function onEnter(event) {
+  setSource();
+}
+
+function setSource() {
+  pic.value.src = props.source;
+}
 </script>
 
-<style>
+<style lang="scss" scoped>
 .pic {
   display: block;
+  max-height: 70dvh;
+  height: 100%;
   width: 100%;
-  height: auto;
-  opacity: 0;
-  transition: opacity 400ms ease-out;
-  cursor: pointer;
+  margin: 0 auto;
+  object-fit: contain;
+  cursor: pointer !important;
+  padding-left: 16px;
+  padding-right: 16px;
 }
 
-.pic.has-loaded {
-  opacity: 1;
-}
-
-/* &.is-loading {} */
-/* &.has-errored {} */
+/* Additional styles for .is-loading and .has-errored can be added here */
 </style>

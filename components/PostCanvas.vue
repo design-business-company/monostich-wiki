@@ -7,14 +7,7 @@
 </template>
 
 <script setup>
-import {
-  onMounted,
-  ref,
-  watch,
-  defineProps,
-  defineExpose,
-  nextTick,
-} from "vue";
+import { onMounted, ref, watch, defineProps, defineExpose } from "vue";
 
 defineExpose({
   saveCanvasAsImage,
@@ -34,14 +27,13 @@ const downloadLink = ref(null);
 function loadImage(src) {
   return new Promise((resolve, reject) => {
     const img = new Image();
-    img.crossOrigin = "anonymous"; // Use this if you're loading images from an external domain
+    img.crossOrigin = "anonymous";
     img.onload = () => resolve(img);
     img.onerror = reject;
     img.src = src;
   });
 }
 
-// Adjust redrawCanvas to wait for drawFooter to complete
 async function redrawCanvas() {
   const canvas = canvasEl.value;
   if (!canvas || !props.data) return;
@@ -102,7 +94,6 @@ function saveCanvasAsImage() {
 
   // Use the referenced <a> tag for downloading
   if (downloadLink.value) {
-    const unixTime = Math.floor(Date.now() / 1000); // Get current time in Unix timestamp (seconds)
     const filename = `Monostich Wiki - ${props.data.adjective} ${props.data.noun}.png`;
 
     downloadLink.value.href = imageData;

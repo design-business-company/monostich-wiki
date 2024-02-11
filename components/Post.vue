@@ -1,96 +1,217 @@
 <template>
-  <article
-    class="pair"
-    :class="[{ 'is-active': imageIsVisible }, { 'is-visible': isInView }]"
-    ref="post"
-  >
-    <PostHeader
-      @click.stop="toggle"
-      :adjective="combo.adjective"
-      :noun="combo.noun"
-      v-if="image"
-    />
+  <Observer :onEnter="onEnter" :once="true">
+    <article
+      class="monostich pair"
+      :class="[{ 'is-active': imageIsVisible }, { 'is-visible': isInView }]"
+      ref="post"
+    >
+      <PostHeader
+        v-if="image"
+        ref="postTitle"
+        @click.stop="toggle"
+        :adjective="combo.adjective"
+        :noun="combo.noun"
+      />
 
-    <div class="pair__drawer" v-if="image">
-      <figure>
-        <Pic
-          @click.stop="toggle"
-          :source="image.source"
-          :alt="combo.imageQueryString"
-          :width="image.width"
-          :height="image.height"
-        />
-      </figure>
+      <div ref="postDrawer" class="pair__drawer" v-if="image">
+        <figure class="monostich__figure">
+          <Pic
+            @click.stop="toggle"
+            :source="image.source"
+            :alt="combo.imageQueryString"
+            :width="image.width"
+            :height="image.height"
+          />
+        </figure>
 
-      <PostLinks :combo="combo" :image="image.source" />
-    </div>
-  </article>
+        <PostLinks :combo="combo" :image="image.source" />
+      </div>
+    </article>
+  </Observer>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted, nextTick } from "vue";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import ScrollToPlugin from "gsap/ScrollToPlugin";
+
 import { FetchWikiImage } from "~/composables/FetchWikiImage";
 
-export default {
-  data() {
-    return {
-      imageIsVisible: false,
-      imageQuerySize: 1024,
-      image: null,
-      observer: null,
-      observerOptions: { rootMargin: `100% 0px`, threshold: 0 },
-      observerAnimation: null,
-      isInView: false,
-    };
-  },
-  props: {
-    combo: {
-      type: Object,
-      required: true,
-    },
-  },
-  setup() {
-    const { image, getImage } = FetchWikiImage();
+gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollToPlugin);
 
-    return { image, getImage };
+const props = defineProps({
+  combo: {
+    type: Object,
+    required: true,
   },
-  mounted() {
-    this.$nextTick(() => {
-      this.observer = new IntersectionObserver(
-        this.observerLazyLoad,
-        this.observerOptions
-      );
-      this.observer.observe(this.$refs.post);
-    });
-  },
-  methods: {
-    observerLazyLoad(entries) {
-      entries.map((entry) => {
-        if (entry.isIntersecting) {
-          this.getImage(this.combo.imageQueryString);
-          this.observer.unobserve(this.$refs.post, this.observerOptions);
-        }
-      });
-    },
-    observerAnimationCallback(entries) {
-      entries.map((entry) => {
-        entry.isIntersecting ? (this.isInView = true) : (this.isInView = false);
-      });
-    },
-    show() {
-      this.$el.scrollIntoView();
-      this.imageIsVisible = true;
-    },
-    hide() {
-      this.imageIsVisible = false;
-    },
-    toggle() {
-      this.imageIsVisible ? this.hide() : this.show();
-    },
-  },
+});
+const { image, getImage } = FetchWikiImage();
+const post = ref(null);
+const postTitle = ref(null);
+const postDrawer = ref(null);
+const imageIsVisible = ref(false);
+const isInView = ref(false);
+
+onMounted(() => {
+  nextTick(() => {
+    // handleScroll();
+  });
+});
+
+// function handleScroll() {
+//   gsap.fromTo(
+//     post.value,
+//     {
+//       scale: 0.98,
+//       opacity: 0.2,
+//     },
+//     {
+//       scale: 1.0,
+//       scrollTrigger: {
+//         trigger: post.value,
+//         ease: "Power4.easeOut",
+//         end: `+=${window.innerHeight * 0.5}`,
+//         start: `-=${window.innerHeight * 0.65}`,
+//         scrub: 0.6,
+//         opacity: 1,
+//         markers: true,
+//       },
+//     }
+//   );
+// }
+
+const onEnter = async (el) => {
+  await getImage(props.combo.imageQueryString);
 };
+
+function show() {
+  imageIsVisible.value = true;
+
+  const image = postDrawer.value.querySelector("img");
+  const height = image.getBoundingClientRect().height;
+  const tl = gsap.timeline();
+
+  // Start both animations at the same time
+  tl.to(
+    window,
+    {
+      scrollTo: post.value.offsetTop,
+      duration: 0.8,
+      ease: "power3.inOut",
+    },
+    "<"
+  ) // Start at the same time as the timeline starts
+
+    // drawer
+    .fromTo(
+      postDrawer.value,
+      {
+        paddingBottom: 0,
+      },
+      {
+        paddingBottom: 24,
+        width: "100%",
+        duration: 0.8,
+        ease: "power3.inOut",
+        maxHeight: height + 100,
+        onComplete: () => {
+          gsap.set(postDrawer.value, {
+            maxHeight: "100vh",
+          });
+        },
+      },
+      "<"
+    )
+
+    // header
+    .fromTo(
+      postTitle.value.$el,
+      {
+        padding: "0 0",
+      },
+      {
+        padding: "0 0",
+        duration: 0.8,
+        ease: "power3.inOut",
+      },
+      "<"
+    )
+
+    // image
+    .fromTo(
+      image,
+      {
+        // transformOrigin: "top center",
+        scale: 0.8,
+        opacity: 0,
+      },
+      {
+        scale: 1,
+
+        opacity: 1,
+        duration: 0.8,
+        ease: "power3.inOut",
+      },
+      "<"
+    );
+}
+
+function hide() {
+  imageIsVisible.value = false;
+
+  const image = postDrawer.value.querySelector("img");
+  const tl = gsap.timeline();
+
+  // Start both animations at the same time
+  tl.to(
+    postDrawer.value,
+    {
+      maxHeight: 0,
+      paddingBottom: 0,
+      duration: 0.8,
+      ease: "power3.inOut",
+    },
+    "<"
+  )
+
+    // header
+    .to(
+      postTitle.value.$el,
+      {
+        padding: "0",
+        duration: 0.8,
+        ease: "power3.inOut",
+      },
+      "<"
+    )
+
+    // image
+    .to(
+      image,
+      {
+        scale: 0.8,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power3.inOut",
+      },
+      "<"
+    );
+}
+
+function toggle() {
+  imageIsVisible.value ? hide() : show();
+}
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.monostich {
+  // &__figure img {
+  //   padding: 100px;
+  // }
+}
+
 .is-active {
   &::v-deep(h1) {
     color: var(--color-foreground);
@@ -100,33 +221,7 @@ export default {
 .pair__drawer {
   overflow: hidden;
   position: relative;
-  /* display: flex; */
-  /* justify-content: center; */
   max-height: 0;
-  opacity: 0;
-  transition: max-height 450ms ease-in-out, opacity 250ms 100ms ease-out,
-    padding 400ms ease-in-out;
-  padding: 0;
-}
-.is-active .pair__drawer {
-  max-height: 100vh;
-  opacity: 1;
-  /* padding-top: 8px; */
-  padding-bottom: 16px;
-}
-
-.pair__drawer img {
-  max-height: 75vh;
-  height: 100%;
-  width: auto;
-  width: 100%;
-  margin: 0 auto;
-  transform: scale(0.95);
-  transition: transform 350ms ease-in-out;
-  object-fit: contain;
-}
-.is-active .pair__drawer img {
-  transform: translate3d(0, 0, 0) scale(1);
 }
 
 .pair__drawer figcaption {

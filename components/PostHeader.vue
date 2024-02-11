@@ -32,13 +32,16 @@ h1 {
   grid-template-columns: 1fr 1fr;
   letter-spacing: -0.0125em;
   color: var(--color-interactive);
-  font-size: 44;
+  font-size: 36px;
   transition: color 0.4s ease-out;
   padding: 0.05em 0;
-  @include fluidScale(44px, 36px, 375px);
+  gap: 0.05em;
 
-  @media (min-width: 500px) {
-    @include fluidScale(68px, 56px, 700px);
+  @include fluidScale(36px, 36px, 375px);
+
+  @media (min-width: 768px) {
+    gap: 0.05em;
+    @include fluidScale(64px, 56px, 768px);
   }
 
   &:hover {

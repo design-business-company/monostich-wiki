@@ -4,6 +4,11 @@
   </NuxtLayout>
 </template>
 
+<script setup>
+import { useRouteWatcher } from "~/composables/RouteWatcher";
+useRouteWatcher();
+</script>
+
 <style>
 #icon__nuxt,
 .site-layout,

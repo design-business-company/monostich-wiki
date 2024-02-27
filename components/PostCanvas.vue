@@ -7,7 +7,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref, watch, defineProps, defineExpose } from "vue";
+import { onMounted, ref, watch } from "vue";
 
 defineExpose({
   saveCanvasAsImage,

@@ -23,6 +23,8 @@ const handleScroll = () => {
   if (
     deviceStore.scrollNearTop ||
     deviceStore.scrollAtTop ||
+    deviceStore.scrollNearBottom ||
+    deviceStore.scrollAtBottom ||
     deviceStore.scrollDirection === "up"
   ) {
     headerIsVisible.value = true;
@@ -48,6 +50,11 @@ onUnmounted(() => {
   left: 0;
   right: 0;
   z-index: 100;
+  pointer-events: none;
+
+  &:hover .wrapper {
+    transform: translate3d(0, 0, 0);
+  }
 
   .wrapper {
     transition: transform 300ms ease-out;

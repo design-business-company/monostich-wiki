@@ -66,9 +66,13 @@ import PageSetup from "~/composables/PageSetup";
 import pageTransitionDefault from "~/assets/scripts/pages/transitionDefault";
 import { useHead } from "#app";
 
-// Run common mount/unmount scripts. Seup SEO, etc.
 PageSetup({
-  seoMeta: { title: "Monostich Wiki - About" },
+  seoMeta: {
+    title: "Monostich Wiki - About",
+    description:
+      "'In the midst of chaos, there is also opportunity.' - Sun-Tzu",
+    image: "/og-image.png",
+  },
 });
 
 useHead({

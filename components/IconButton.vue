@@ -36,19 +36,21 @@ export default {
 
 .button {
   font-size: 12px;
-  @include fluidScale(12px, 16px);
+  // @include fluidScale(12px, 16px);
 }
 
 button,
 a {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   appearance: none;
   border: 0;
   background: 0;
   cursor: pointer;
   min-height: 44px;
   padding: 0;
+  padding-top: var(--unit-small);
+  padding-bottom: var(--unit-small);
   margin: 0;
   text-decoration: none;
   outline: none;
@@ -65,7 +67,7 @@ a {
     line-height: 1;
 
     padding: 0.5em 0.75em 0.5em 0.6em;
-    gap: 0.4em;
+    gap: 0.5em;
 
     display: inline-flex;
     align-items: center;

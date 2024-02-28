@@ -10,12 +10,11 @@
         articles, crafting a unique tapestry of thought in every iteration.
       </p>
       <p>
-        This interplay of words and images acts as a catalyst for creativity,
-        pushing the boundaries of conventional narrative and inviting users to
-        construct their own stories, interpretations, and meanings. Each
-        monostich serves as a testament to the human ability to connect dots, to
-        weave narratives, and to find humor, intelligence, and even absurdity in
-        the fragments of information that float through our digital lives.
+        Wiki Monostich is a testament to the beauty of randomness and the human
+        capacity to find meaning, humor, and insight in the most unexpected
+        places. At its core, Wiki Monostich plays with the elements of chance by
+        shuffling an adjective, a noun, and an accompanying image from Wikipedia
+        articles, crafting a unique tapestry of thought in every iteration.
       </p>
       <p>
         The philosophical underpinnings of Wiki Monostich are as rich and varied
@@ -23,13 +22,12 @@
         encounter with randomness; it is a mirror reflecting our innate desire
         to find order in chaos, meaning in the mundane. It challenges us to
         question our perceptions and biases, encouraging us to make sense of
-        what initially appears to be nonsensical. The juxtaposition of random
-        adjectives and nouns with an unrelated image serves as a canvas for our
+        what initially appears to be nonsensical. It’s a canvas for our
         imagination, proving that sense can be sculpted from randomness.
       </p>
       <p>
         In a world brimming with structured data and rigid categorizations,
-        we're reminded that there is profound beauty and insight to be found in
+        we’re reminded that there is profound beauty and insight to be found in
         the serendipitous collisions of ideas and images. Through this project,
         we are invited to embrace the randomness, to revel in the unexpected,
         and to celebrate the remarkable human capacity to find coherence in the

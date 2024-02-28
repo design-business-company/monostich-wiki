@@ -80,8 +80,7 @@ export default {
 .links {
   display: flex;
   justify-content: center;
-  gap: 0.45em;
-  margin-top: 0.125em;
+  gap: var(--unit-small);
 }
 
 .truncate {

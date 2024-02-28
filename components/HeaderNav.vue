@@ -45,9 +45,9 @@ nav {
 
   &__content {
     padding: 1em;
-    width: clamp(32px, 3vw, 44px);
-    height: clamp(32px, 3vw, 44px);
-    border-radius: clamp(32px, 3vw, 44px);
+    width: clamp(36px, 3vw, 44px);
+    height: clamp(36px, 3vw, 44px);
+    border-radius: clamp(36px, 3vw, 44px);
     background-color: var(--color-background-light);
     display: flex;
     justify-content: center;

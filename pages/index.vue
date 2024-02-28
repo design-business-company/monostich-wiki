@@ -41,7 +41,14 @@ definePageMeta({
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+.posts {
+  @media (max-width: 768px) {
+    padding-top: calc(36px + var(--unit-small));
+    padding-bottom: calc(36px + var(--unit-small));
+  }
+}
+
 .saveme {
   position: fixed;
   bottom: 10px;

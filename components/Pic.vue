@@ -77,8 +77,8 @@ function setSource() {
   margin: 0 auto;
   object-fit: contain;
   cursor: pointer !important;
-  // padding-left: var(--unit-big);
-  // padding-right: var(--unit-big);
+  padding-left: var(--unit-small);
+  padding-right: var(--unit-small);
 }
 
 /* Additional styles for .is-loading and .has-errored can be added here */

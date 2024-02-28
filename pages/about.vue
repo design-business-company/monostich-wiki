@@ -99,7 +99,7 @@ definePageMeta({
   letter-spacing: -0.02em;
 
   @media (max-width: 768px) {
-    padding-top: calc(var(--unit-huge) + var(--unit-smaller));
+    padding-top: calc(32px + var(--unit-small));
   }
 }
 

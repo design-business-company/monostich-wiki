@@ -1,14 +1,16 @@
 <template>
   <nav>
     <NuxtLink :to="linkPath" class="fab">
-      <transition name="fade">
-        <span v-if="appStore.route === '/'">
-          <IconInfo />
-        </span>
-        <span v-else>
-          <IconHome />
-        </span>
-      </transition>
+      <div class="fab__content">
+        <transition name="fade">
+          <span v-if="appStore.route === '/'">
+            <IconInfo />
+          </span>
+          <span v-else>
+            <IconHome />
+          </span>
+        </transition>
+      </div>
     </NuxtLink>
   </nav>
 </template>
@@ -28,49 +30,53 @@ const linkPath = computed(() => {
 <style lang="scss" scoped>
 nav {
   position: relative;
-  margin-bottom: 2rem;
   z-index: 999;
-  padding-left: 16px;
-  padding-top: 16px;
 }
 
 .fab {
+  padding: var(--unit-big);
   pointer-events: all;
-  width: 44px;
-  height: 44px;
-  border-radius: 44px;
-  background-color: var(--color-background-light);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  transition: background-color 150ms ease-in-out;
+  display: inline-flex;
+  padding: calc(var(--unit-big) - var(--unit-smaller));
 
-  &:hover {
+  &:hover .fab__content {
     background-color: var(--color-interactive);
   }
 
-  > span {
-    position: absolute;
-    width: 100%;
-    height: 100%;
+  &__content {
+    padding: 1em;
+    width: clamp(32px, 3vw, 44px);
+    height: clamp(32px, 3vw, 44px);
+    border-radius: clamp(32px, 3vw, 44px);
+    background-color: var(--color-background-light);
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    transition: background-color 150ms ease-in-out;
 
-    &::v-deep(svg) {
-      display: block;
-      width: 60%;
-      height: 60%;
-    }
+    > span {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
-    &::v-deep(path) {
-      stroke: var(--color-fab-icon);
-      stroke-width: 1.5px;
-    }
+      &::v-deep(svg) {
+        display: block;
+        width: 60%;
+        height: 60%;
+      }
 
-    &::v-deep(circle) {
-      fill: var(--color-fab-icon);
+      &::v-deep(path) {
+        stroke: var(--color-fab-icon);
+        stroke-width: 1.5px;
+      }
+
+      &::v-deep(circle) {
+        fill: var(--color-fab-icon);
+      }
     }
   }
 }

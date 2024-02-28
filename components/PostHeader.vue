@@ -28,16 +28,23 @@ export default {
 h1 {
   position: relative;
   z-index: 1;
+  display: flex;
+  justify-content: center;
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
+
+  // padding-right: var(--unit-big);
+  // padding-left: var(--unit-big);
+  width: 100%;
   letter-spacing: -0.0125em;
   color: var(--color-interactive);
-  font-size: 48px;
   line-height: 1;
   transition: color 0.4s ease-out;
   gap: 0.05em;
+  font-size: 44px;
 
-  @include fluidScale(48px, 48px, 500px);
+  @include fluidScale(44px, 44px, 500px);
 
   @media (min-width: 768px) {
     gap: 0.05em;
@@ -52,11 +59,9 @@ h1 {
 
 .adjective {
   text-align: right;
-  padding-left: 8px;
 }
 
 .noun {
   text-transform: uppercase;
-  padding-right: 8px;
 }
 </style>

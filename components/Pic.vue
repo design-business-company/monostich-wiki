@@ -69,15 +69,16 @@ function setSource() {
 
 <style lang="scss" scoped>
 .pic {
-  display: block;
+  display: flex;
   max-height: 70dvh;
   height: 100%;
   width: 100%;
+  box-sizing: border-box;
   margin: 0 auto;
   object-fit: contain;
   cursor: pointer !important;
-  padding-left: 16px;
-  padding-right: 16px;
+  // padding-left: var(--unit-big);
+  // padding-right: var(--unit-big);
 }
 
 /* Additional styles for .is-loading and .has-errored can be added here */

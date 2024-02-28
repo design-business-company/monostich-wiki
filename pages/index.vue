@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page">
     <div class="saveme">
       <PostCanvas :data="monostichData" />
     </div>
@@ -42,6 +42,9 @@ definePageMeta({
 </script>
 
 <style lang="scss" scoped>
+.page {
+  width: 100%;
+}
 .posts {
   @media (max-width: 768px) {
     padding-top: calc(36px + var(--unit-small));

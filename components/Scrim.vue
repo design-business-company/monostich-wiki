@@ -51,7 +51,7 @@ function onLeave(el, done) {
 
 .cover {
   width: 100vw;
-  height: 100dvh;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;

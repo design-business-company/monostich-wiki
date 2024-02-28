@@ -58,7 +58,7 @@ async function redrawCanvas() {
 
   ctx.drawImage(img, imgX, imgY, imgWidth, imgHeight);
 
-  ctx.fillStyle = "#4a462a";
+  ctx.fillStyle = "#F4F3EF";
   ctx.font = "176px 'Frankie'";
   ctx.textAlign = "center";
 

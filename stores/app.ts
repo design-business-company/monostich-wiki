@@ -11,8 +11,6 @@ export const useAppStore = defineStore("app", {
       this.appHasLoaded = loaded;
     },
     setRoute(route: object) {
-      console.log("route was set and is... ", this.route);
-
       this.route = route;
     },
     setRouteIsTransitioning(transitioning: boolean) {

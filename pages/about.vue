@@ -10,11 +10,12 @@
         articles, crafting a unique tapestry of thought in every iteration.
       </p>
       <p>
-        Wiki Monostich is a testament to the beauty of randomness and the human
-        capacity to find meaning, humor, and insight in the most unexpected
-        places. At its core, Wiki Monostich plays with the elements of chance by
-        shuffling an adjective, a noun, and an accompanying image from Wikipedia
-        articles, crafting a unique tapestry of thought in every iteration.
+        This interplay of words and images acts as a catalyst for creativity,
+        pushing the boundaries of conventional narrative and inviting users to
+        construct their own stories, interpretations, and meanings. Each
+        monostich serves as a testament to the human ability to connect dots, to
+        weave narratives, and to find humor, intelligence, and even absurdity in
+        the fragments of information that float through our digital lives.
       </p>
       <p>
         The philosophical underpinnings of Wiki Monostich are as rich and varied
@@ -22,16 +23,16 @@
         encounter with randomness; it is a mirror reflecting our innate desire
         to find order in chaos, meaning in the mundane. It challenges us to
         question our perceptions and biases, encouraging us to make sense of
-        what initially appears to be nonsensical. It’s a canvas for our
+        what initially appears to be nonsensical. It&apos; s a canvas for our
         imagination, proving that sense can be sculpted from randomness.
       </p>
       <p>
         In a world brimming with structured data and rigid categorizations,
-        we’re reminded that there is profound beauty and insight to be found in
-        the serendipitous collisions of ideas and images. Through this project,
-        we are invited to embrace the randomness, to revel in the unexpected,
-        and to celebrate the remarkable human capacity to find coherence in the
-        chaos of the digital age.
+        we&apos; re reminded that there is profound beauty and insight to be
+        found in the serendipitous collisions of ideas and images. Through this
+        project, we are invited to embrace the randomness, to revel in the
+        unexpected, and to celebrate the remarkable human capacity to find
+        coherence in the chaos of the digital age.
       </p>
     </div>
     <footer>
@@ -88,7 +89,8 @@ definePageMeta({
 .page-content {
   position: relative;
   display: grid;
-  grid-template-rows: auto 1fr;
+  min-height: 100%;
+  grid-template-rows: 1fr auto;
   grid-template-columns: repeat(12, 1fr);
   padding-left: var(--unit-big);
   padding-right: var(--unit-big);
@@ -125,6 +127,7 @@ definePageMeta({
   @media (min-width: 1024px) {
     grid-column: 4 / span 6;
     @include fluidScale(16px, 18px, 1024px);
+    letter-spacing: -0.02em;
   }
 
   // max-width: 50ch;

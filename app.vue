@@ -15,5 +15,6 @@ useRouteWatcher();
 .site-page,
 .site-content {
   min-height: 100dvh;
+  display: flex;
 }
 </style>

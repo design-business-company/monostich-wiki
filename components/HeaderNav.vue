@@ -65,12 +65,12 @@ nav {
     }
 
     &::v-deep(path) {
-      stroke: var(--color-foreground);
+      stroke: var(--color-fab-icon);
       stroke-width: 1.5px;
     }
 
     &::v-deep(circle) {
-      fill: var(--color-foreground);
+      fill: var(--color-fab-icon);
     }
   }
 }

@@ -12,7 +12,7 @@ export default function pageTransitionDefault() {
     onBeforeEnter: (el) => {
       gsap.set(el, {
         opacity: 0,
-        y: "1rem",
+        y: "20px",
       });
     },
     onEnter: (el, done) => {

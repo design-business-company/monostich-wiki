@@ -326,4 +326,7 @@ export const imageQueryStrings: string[] = [
   "Tabletop game",
   "Greed",
   "Money",
+  "File:Condom challenge.jpg",
+  "Charlie Charlie challenge",
+  "Ice Bucket Challenge",
 ];

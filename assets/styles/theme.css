@@ -26,7 +26,8 @@
   --color-background: #000000;
   --color-background-light: #16150d;
   --color-foreground: #f4f3ef;
-  --color-interactive: #4a462a;
+  --color-interactive: #3b3c28;
+  --color-fab-icon: var(--color-foreground);
 
   --unit-baseline: 8px;
   --unit-smallest: calc(var(--unit-baseline) * 0.25);
@@ -38,14 +39,4 @@
   --unit-huge: calc(var(--unit-baseline) * 6);
   --unit-huger: calc(var(--unit-baseline) * 12);
   --unit-hugest: calc(var(--unit-baseline) * 24);
-}
-
-/* Override variables for dark theme */
-@media (prefers-color-scheme: light) {
-  :root {
-    --color-background: #f6f5f5;
-    --color-background-light: #8b8681;
-    --color-foreground: #0e0e0c;
-    --color-interactive: #fc3c00;
-  }
 }

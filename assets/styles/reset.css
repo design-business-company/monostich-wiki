@@ -160,7 +160,7 @@ html {
   position: relative;
   background-color: var(--color-background);
   color: var(--color-foreground);
-  transition: background-color 400ms ease-out, color 400ms ease-out;
+  transition: background-color 600ms 250ms ease-out, color 600ms 250ms ease-out;
 }
 
 a {

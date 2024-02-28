@@ -22,7 +22,7 @@ function onEnter(el, done) {
   gsap.to(el, {
     ease: "expo.out",
     duration: 1,
-    delay: 0.5,
+    delay: 2,
     opacity: 1,
     y: 0,
     rotate: 0,

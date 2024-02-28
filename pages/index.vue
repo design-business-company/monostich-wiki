@@ -24,9 +24,14 @@ const canvasStore = useCanvasStore();
 const monostichData = computed(() => canvasStore.data);
 const { data } = await useFetch("/api/combos");
 
-// Run common mount/unmount scripts. Seup SEO, etc.
+// Run common mount/unmount scripts. Setup SEO, etc.
 PageSetup({
-  seoMeta: { title: "Monostich Wiki" },
+  seoMeta: {
+    title: "Monostich Wiki",
+    description:
+      "'In all chaos there is a cosmos, in all disorder a secret order.' - Carl Jung",
+    image: "/og-image.png",
+  },
 });
 
 // Define page transitions or other page meta

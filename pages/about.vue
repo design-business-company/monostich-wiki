@@ -71,7 +71,7 @@ PageSetup({
     title: "Monostich Wiki - About",
     description:
       "'In the midst of chaos, there is also opportunity.' - Sun-Tzu",
-    image: "/og-image.png",
+    image: "og-image.png",
   },
 });
 

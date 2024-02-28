@@ -30,7 +30,7 @@ PageSetup({
     title: "Monostich Wiki",
     description:
       "'In all chaos there is a cosmos, in all disorder a secret order.' - Carl Jung",
-    image: "/og-image.png",
+    image: "og-image.png",
   },
 });
 

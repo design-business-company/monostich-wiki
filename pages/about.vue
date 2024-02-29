@@ -3,7 +3,7 @@
     <div class="center-col">
       <IconLogo />
       <p>
-        Wiki Monostich is a testament to the beauty of randomness and the human
+        Monostich.wiki is a testament to the beauty of randomness and the human
         capacity to find meaning, humor, and insight in the most unexpected
         places. At its core, Wiki Monostich plays with the elements of chance by
         shuffling an adjective, a noun, and an accompanying image from Wikipedia
@@ -49,7 +49,11 @@
         </li>
         <li>
           Open-sourced on: <br />
-          <a href="https://github.com" target="_blank">Github</a>
+          <a
+            href="https://github.com/design-business-company/monostich-wiki"
+            target="_blank"
+            >Github</a
+          >
         </li>
         <li>
           Typography used: <br />

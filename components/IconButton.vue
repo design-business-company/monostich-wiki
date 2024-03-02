@@ -36,7 +36,10 @@ export default {
 
 .button {
   font-size: 12px;
-  // @include fluidScale(12px, 16px);
+
+  @media (min-width: 1440px) {
+    @include fluidScale(12px, 16px, 1440px);
+  }
 }
 
 button,
@@ -80,6 +83,9 @@ a {
     stroke-width: 1.4;
     stroke: var(--color-interactive);
     transition: stroke 0.2s ease-out;
+    flex: none;
+    width: 1.25em;
+    height: 1.25em;
   }
 
   &:focus-visible .content {

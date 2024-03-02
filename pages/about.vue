@@ -63,7 +63,7 @@
           >
         </li>
         <li>
-          <span>Open-sourced on: <br /></span>
+          <span>Fonts used:<br /></span>
           <span>Franklin, System 85, DBC Metaphor</span>
         </li>
       </ul>
@@ -175,6 +175,10 @@ footer {
   @media (min-width: 768px) {
     font-size: 14px;
     line-height: 16px;
+  }
+
+  @media (min-width: 1440px) {
+    @include fluidScale(14px, 16px, 1440px);
   }
 
   a {

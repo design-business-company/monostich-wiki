@@ -50,21 +50,5 @@ This is a [Nuxt](https://nuxt.com/docs/getting-started/introduction) project whi
 
 ### Helpful Composables/components
 
-- Observer
-
-## Store
-
-Out of the box, there is a Pinia store called `device`. All of the plugins device plugins listed above post their results to `device` this store.
-
-```html
-<script setup>
-  // import the store
-  import { useDeviceStore } from "~/stores/device";
-
-  // init the store
-  const device = useDeviceStore();
-
-  // get screen dpi from store
-  const dpi = device.dpi;
-</script>
-```
+- [`FetchWikiImage`](./composables/FetchWikiImage.ts) for fetching image url from wikipedia.
+- [`Observer`](./components/Observer.vue) for detecting if an element is in the viewport.

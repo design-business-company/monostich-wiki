@@ -47,7 +47,7 @@ definePageMeta({
 }
 .posts {
   @media (max-width: 768px) {
-    padding-top: calc(36px + var(--unit-small));
+    padding-top: calc(36px + var(--unit-small) + var(--unit-big));
     padding-bottom: calc(36px + var(--unit-small));
   }
 }

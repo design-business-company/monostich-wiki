@@ -35,29 +35,36 @@
         coherence in the chaos of the digital age.
       </p>
     </div>
+
     <footer>
       <ul>
         <li>
-          Created by: <br />
-          <a href="https://designbusinesscompany.com" target="_blank"
-            >Design Business Company</a
+          <span>Created by: <br /></span>
+          <span
+            ><a href="https://designbusinesscompany.com" target="_blank"
+              >Design Business Company</a
+            ></span
           >
         </li>
         <li>
-          Images provided by: <br />
-          <a href="https://wikipedia.com" target="_blank">Wikipedia</a>
-        </li>
-        <li>
-          Open-sourced on: <br />
-          <a
-            href="https://github.com/design-business-company/monostich-wiki"
-            target="_blank"
-            >Github</a
+          <span>Images provided by: <br /></span>
+          <span
+            ><a href="https://wikipedia.com" target="_blank">Wikipedia</a></span
           >
         </li>
         <li>
-          Typography used: <br />
-          Franklin, System 85, DBC Metaphor
+          <span>Open-sourced on: <br /></span>
+          <span
+            ><a
+              href="https://github.com/design-business-company/monostich-wiki"
+              target="_blank"
+              >Github</a
+            ></span
+          >
+        </li>
+        <li>
+          <span>Open-sourced on: <br /></span>
+          <span>Franklin, System 85, DBC Metaphor</span>
         </li>
       </ul>
     </footer>
@@ -173,10 +180,19 @@ footer {
   a {
     color: inherit;
     text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+      text-underline-offset: 0.1em;
+    }
   }
 
   li {
     margin-bottom: 1em;
+
+    span:first-child {
+      opacity: 0.6;
+    }
   }
 }
 </style>

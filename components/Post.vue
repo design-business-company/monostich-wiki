@@ -14,6 +14,7 @@
         ref="postTitle"
         :adjective="combo.adjective"
         :noun="combo.noun"
+        v-if="image"
       />
       <Observer :onEnter="onDrawerEnter" :once="true">
         <div ref="postDrawer" class="pair__drawer" v-if="image">
@@ -28,10 +29,6 @@
 
           <PostLinks :combo="combo" :image="image.source" />
         </div>
-        <!-- uncomment this to find images that error out -->
-        <!-- <span v-else :style="{ backgroundColor: !image ? 'red' : '' }">{{
-          combo
-        }}</span> -->
       </Observer>
     </article>
   </Observer>

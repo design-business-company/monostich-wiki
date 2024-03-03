@@ -61,7 +61,8 @@ useKeyboardShortcuts({
 });
 
 function postSelect(index) {
-  if (index !== undefined && index !== null) appStore.setActiveIndex(index);
+  if (typeof index === "number") appStore.setActiveIndex(index);
+
   postsRef.value[appStore.activeIndex].selectPost();
 }
 

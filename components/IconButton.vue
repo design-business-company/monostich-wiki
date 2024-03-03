@@ -6,7 +6,7 @@
         <slot name="text"></slot>
       </div>
     </button>
-    <a v-else :href="url" @click="onClick" target="_blank">
+    <a v-else :href="url" @click.stop="onClick" target="_blank">
       <div class="content">
         <slot name="icon"></slot>
         <slot name="text"></slot>

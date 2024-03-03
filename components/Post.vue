@@ -7,21 +7,18 @@
     <article
       class="monostich"
       ref="post"
-      :class="[{ 'is-active': imageIsVisible }, { 'is-visible': isInView }]"
+      :class="[{ 'is-expanded': imageIsVisible }, { 'is-visible': isInView }]"
+      @click="toggle"
     >
       <PostHeader
-        v-if="image"
         ref="postTitle"
-        @click.stop="toggle"
         :adjective="combo.adjective"
         :noun="combo.noun"
       />
-
       <Observer :onEnter="onDrawerEnter" :once="true">
         <div ref="postDrawer" class="pair__drawer" v-if="image">
           <figure class="monostich__figure">
             <Pic
-              @click.stop="toggle"
               :source="image.source"
               :alt="combo.imageQueryString"
               :width="image.width"
@@ -31,23 +28,34 @@
 
           <PostLinks :combo="combo" :image="image.source" />
         </div>
+        <!-- uncomment this to find images that error out -->
+        <!-- <span v-else :style="{ backgroundColor: !image ? 'red' : '' }">{{
+          combo
+        }}</span> -->
       </Observer>
     </article>
   </Observer>
 </template>
 
 <script setup>
-import { ref, onMounted, nextTick } from "vue";
+import { ref } from "vue";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import ScrollToPlugin from "gsap/ScrollToPlugin";
-
 import { FetchWikiImage } from "~/composables/FetchWikiImage";
+import { useAppStore } from "~/stores/app";
+import ScrollToPlugin from "gsap/ScrollToPlugin";
+import { useCanvasStore } from "@/stores/canvas";
 
 gsap.registerPlugin(ScrollTrigger);
 gsap.registerPlugin(ScrollToPlugin);
 
+const appStore = useAppStore();
+
 const props = defineProps({
+  index: {
+    type: Number,
+    required: true,
+  },
   combo: {
     type: Object,
     required: true,
@@ -57,6 +65,7 @@ const { image, getImage } = FetchWikiImage();
 const post = ref(null);
 const postTitle = ref(null);
 const postDrawer = ref(null);
+const canvasStore = useCanvasStore();
 const imageIsVisible = ref(false);
 const isInView = ref(false);
 
@@ -85,8 +94,6 @@ const onDrawerEnter = async (el) => {
 };
 
 function show() {
-  imageIsVisible.value = true;
-
   const image = postDrawer.value.querySelector("img");
   const height = image.getBoundingClientRect().height;
   const tl = gsap.timeline();
@@ -147,13 +154,14 @@ function show() {
       },
       {
         scale: 1,
-
         opacity: 1,
         duration: 0.8,
         ease: "power3.inOut",
       },
       "<"
     );
+
+  imageIsVisible.value = true;
 }
 
 function hide() {
@@ -198,9 +206,28 @@ function hide() {
     );
 }
 
-function toggle() {
-  imageIsVisible.value ? hide() : show();
+function toggle(ev) {
+  if (imageIsVisible.value) {
+    ev.stopPropagation();
+    console.log(ev);
+    hide();
+  }
 }
+
+function updateCanvas() {
+  canvasStore.saveCanvasData({
+    adjective: props.combo.adjective,
+    noun: props.combo.noun,
+    image: image.value.source,
+  });
+}
+
+defineExpose({
+  selectPost() {
+    updateCanvas();
+    show();
+  },
+});
 </script>
 
 <style lang="scss" scoped>
@@ -208,7 +235,7 @@ function toggle() {
   opacity: 0.2;
 }
 
-.is-active {
+.is-expanded {
   &::v-deep(h1) {
     color: var(--color-foreground);
   }

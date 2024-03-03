@@ -57,7 +57,8 @@ button {
   position: fixed;
   top: calc(var(--unit-small) + var(--unit-smaller));
   right: var(--unit-big);
-  z-index: 999;
+  z-index: 9999;
+  pointer-events: all;
 }
 
 table {

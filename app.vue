@@ -6,6 +6,7 @@
 
 <script setup>
 import { useRouteWatcher } from "~/composables/RouteWatcher";
+
 useRouteWatcher();
 </script>
 

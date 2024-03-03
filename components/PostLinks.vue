@@ -9,7 +9,7 @@
       >
     </IconButton>
 
-    <IconButton @click="saveMonostich">
+    <IconButton @click.stop="saveMonostich">
       <template #icon>
         <IconDownload />
       </template>
@@ -61,16 +61,8 @@ export default {
   },
   methods: {
     saveMonostich(event) {
-      event.stopPropagation();
-
       const canvasStore = useCanvasStore();
-      canvasStore.saveCanvasData({
-        adjective: this.combo.adjective,
-        noun: this.combo.noun,
-        image: this.image,
-      });
-
-      canvasStore.saveToCanvas();
+      canvasStore.saveCanvas();
     },
   },
 };

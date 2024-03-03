@@ -1,28 +1,36 @@
 <template>
   <div class="page">
     <div class="saveme">
-      <PostCanvas :data="monostichData" />
+      <PostCanvas :data="monostichData" ref="canvasRef" />
     </div>
 
     <div class="posts">
       <Post
         v-for="(combo, index) in data.combos"
         ref="postsRef"
+        :index="index"
         :key="`combo-${index}`"
         :combo="combo"
+        @click.prevent="postSelect(index)"
       />
     </div>
   </div>
 </template>
 
 <script setup>
+import { ref, onMounted, nextTick, toRaw } from "vue";
 import PageSetup from "~/composables/PageSetup";
 import pageTransitionDefault from "~/assets/scripts/pages/transitionDefault";
+import { useKeyboardShortcuts } from "~/composables/useKeyboardShortcuts";
+import { useAppStore } from "~/stores/app";
 import { useCanvasStore } from "@/stores/canvas";
 
 const canvasStore = useCanvasStore();
 const monostichData = computed(() => canvasStore.data);
 const { data } = await useFetch("/api/combos");
+const appStore = useAppStore();
+const postsRef = ref();
+const canvasRef = ref();
 
 // Run common mount/unmount scripts. Setup SEO, etc.
 PageSetup({
@@ -39,6 +47,35 @@ PageSetup({
 definePageMeta({
   pageTransition: pageTransitionDefault(),
 });
+
+useKeyboardShortcuts({
+  " ": () => {
+    postSelectNext();
+  },
+  Enter: () => {
+    saveImage();
+  },
+});
+
+function postSelect(index) {
+  if (index !== undefined && index !== null) appStore.setActiveIndex(index);
+  console.log(index, appStore.activeIndex);
+  postsRef.value[appStore.activeIndex].selectPost();
+}
+
+function postSelectNext(el) {
+  appStore.incrementActiveIndex();
+  postSelect();
+}
+
+function postSelectPrevious() {
+  appStore.decrementActiveIndex();
+  postSelect();
+}
+
+function saveImage() {
+  canvasRef.value.saveCanvasAsImage();
+}
 </script>
 
 <style lang="scss" scoped>

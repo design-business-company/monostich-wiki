@@ -1,5 +1,4 @@
 import { defineStore } from "pinia";
-import { eventBus } from "@/assets/scripts/eventBus";
 
 interface canvasData {
   adjective: string;
@@ -8,14 +7,16 @@ interface canvasData {
 }
 
 interface CanvasState {
+  triggerSaveOnChange: number;
   data: canvasData | null;
 }
 
 export const useCanvasStore = defineStore("canvas", {
   state: (): CanvasState => ({
+    triggerSaveOnChange: 0,
     data: {
-      adjective: "Wiki",
-      noun: "Monostich",
+      adjective: "MONOSTICH",
+      noun: "Wiki",
       image:
         "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Wikipedia-logo-v2.svg/300px-Wikipedia-logo-v2.svg.png",
     },
@@ -24,8 +25,9 @@ export const useCanvasStore = defineStore("canvas", {
     saveCanvasData(combo: canvasData) {
       this.data = combo;
     },
-    saveToCanvas() {
-      eventBus.emit("draw-canvas");
+    saveCanvas() {
+      // this num is watced in PostCanvas. when changed, it saves the canvas as png
+      this.triggerSaveOnChange += 1;
     },
   },
 });

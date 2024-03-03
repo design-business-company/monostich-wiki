@@ -1,24 +1,18 @@
 <template>
   <div>
     <canvas ref="canvasEl" width="1920" height="1920"></canvas>
-    <!-- Hidden link for downloading the canvas image -->
     <a ref="downloadLink" style="display: none"></a>
   </div>
 </template>
 
 <script setup>
 import { onMounted, ref, watch } from "vue";
+import { useCanvasStore } from "@/stores/canvas";
+
+const canvasStore = useCanvasStore();
 
 defineExpose({
   saveCanvasAsImage,
-});
-
-const props = defineProps({
-  data: {
-    type: Object,
-    default: {},
-    required: true,
-  },
 });
 
 const canvasEl = ref(null);
@@ -36,7 +30,7 @@ function loadImage(src) {
 
 async function redrawCanvas() {
   const canvas = canvasEl.value;
-  if (!canvas || !props.data) return;
+  if (!canvas || !canvasStore.data) return;
 
   const ctx = canvas.getContext("2d");
   if (!ctx) return;
@@ -44,7 +38,7 @@ async function redrawCanvas() {
   // Clear the canvas before redrawing
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  const { adjective, noun, image } = props.data;
+  const { adjective, noun, image } = canvasStore.data;
 
   ctx.fillStyle = "black"; // Background color
   ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -86,7 +80,8 @@ function drawFooter(canvas, ctx) {
   });
 }
 
-function saveCanvasAsImage() {
+async function saveCanvasAsImage() {
+  await redrawCanvas();
   const canvas = canvasEl.value;
   if (!canvas) return;
 
@@ -94,7 +89,7 @@ function saveCanvasAsImage() {
 
   // Use the referenced <a> tag for downloading
   if (downloadLink.value) {
-    const filename = `Monostich Wiki - ${props.data.adjective} ${props.data.noun}.png`;
+    const filename = `Monostich.wiki - ${canvasStore.data.adjective} ${canvasStore.data.noun}.png`;
 
     downloadLink.value.href = imageData;
     downloadLink.value.download = filename;
@@ -102,15 +97,16 @@ function saveCanvasAsImage() {
   }
 }
 
-onMounted(() => {
-  redrawCanvas();
+onMounted(async () => {
+  await redrawCanvas();
 });
 
-// Modify the watcher to use async/await
+// this value changes when the save button within postLinks button is clicked
 watch(
-  () => props.data,
+  () => canvasStore.triggerSaveOnChange,
   async (newVal, oldVal) => {
     await redrawCanvas();
+
     saveCanvasAsImage();
   }
 );

@@ -70,6 +70,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       deviceStore.setScrollAtBottom(totalPageHeight < scrollPosition + 1);
     },
     setPosition() {
+      if (!this.instance) return;
       // reset vals
       deviceStore.setScrollAtTop(false);
       deviceStore.setScrollNearTop(false);

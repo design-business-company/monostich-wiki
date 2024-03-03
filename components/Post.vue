@@ -209,7 +209,6 @@ function hide() {
 function toggle(ev) {
   if (imageIsVisible.value) {
     ev.stopPropagation();
-    console.log(ev);
     hide();
   }
 }

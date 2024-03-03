@@ -49,8 +49,11 @@ definePageMeta({
 });
 
 useKeyboardShortcuts({
-  " ": () => {
+  ArrowDown: () => {
     postSelectNext();
+  },
+  ArrowUp: () => {
+    postSelectPrevious();
   },
   Enter: () => {
     saveImage();
@@ -59,7 +62,6 @@ useKeyboardShortcuts({
 
 function postSelect(index) {
   if (index !== undefined && index !== null) appStore.setActiveIndex(index);
-  console.log(index, appStore.activeIndex);
   postsRef.value[appStore.activeIndex].selectPost();
 }
 

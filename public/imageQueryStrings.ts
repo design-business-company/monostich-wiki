@@ -331,4 +331,5 @@ export const imageQueryStrings: string[] = [
   "Reincarnation",
   "Telepathy",
   "Unidentified flying object",
+  "File:Colander eclipse viewing 05 (cropped).jpg",
 ];
